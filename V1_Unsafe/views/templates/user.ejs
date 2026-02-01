@@ -1,0 +1,36 @@
+<li class="container list-group-item d-flex justify-content-between">
+  <div>
+    <%= user.name %> (<%= user.user_type %>)
+  </div>
+  <div>
+    <!-- Rose “Promote to Admin” -->
+    <a
+      class="btn btn-primary"
+      href="/admin?user=<%= user._id %>&type=admin"
+      role="button"
+      style="
+        --bs-btn-bg: #e83e8c;
+        --bs-btn-border-color: #e83e8c;
+        --bs-btn-hover-bg: #d63384;
+        --bs-btn-hover-border-color: #c32f76;
+      "
+    >
+      Promote to Admin
+    </a>
+
+    <!-- Lavender “Demote to User” -->
+    <a
+      class="btn btn-primary ms-2"
+      href="/admin?user=<%= user._id %>&type=user"
+      role="button"
+      style="
+        --bs-btn-bg: #b57edc;
+        --bs-btn-border-color: #b57edc;
+        --bs-btn-hover-bg: #9b6fc2;
+        --bs-btn-hover-border-color: #8a60a8;
+      "
+    >
+      Demote to User
+    </a>
+  </div>
+</li>
