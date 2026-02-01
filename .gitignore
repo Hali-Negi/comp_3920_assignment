@@ -1,7 +1,4 @@
-# IntelliJ / JetBrains
-.idea/
-*.iml
-out/
-
-# Mac
+.env
+node_modules/
+package-lock.json
 .DS_Store
