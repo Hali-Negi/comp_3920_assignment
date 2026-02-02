@@ -32,6 +32,8 @@ const dbPool = mysql.createPool({
   user: mysql_user,
   password: mysql_password,
   database: mysql_database,
+  // port: process.env.MYSQL_PORT ? Number(process.env.MYSQL_PORT) : 3306,
+
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -157,6 +159,9 @@ app.post("/loginSubmit", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
+  console.log("[LOGIN] username input =", username);
+
+
   if (!username || username.trim() === "") {
     res.redirect("/login?error=username");
     return;
@@ -168,7 +173,9 @@ app.post("/loginSubmit", async (req, res) => {
 
   try {
     const query = "SELECT * FROM user WHERE username = :username";
+    console.log("[LOGIN] Running safe parameterized query");
     const [rows] = await dbPool.execute(query, { username: username });
+    console.log("[LOGIN] rows returned =", rows.length);
 
     if (rows.length === 0) {
       res.redirect("/login?error=invalid");

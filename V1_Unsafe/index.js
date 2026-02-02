@@ -51,7 +51,8 @@ app.use(session({
   secret: node_session_secret,
   store: mongoStore,
   saveUninitialized: false,
-  resave: true
+  resave: false,
+  cookie: { maxAge: expireTime }
 }));
 
 app.use(express.static(__dirname + '/public'));
@@ -116,8 +117,6 @@ app.post("/signupSubmit", async (req, res) => {
 
   // UNSAFE: SQL Injection vulnerability - directly concatenating user input
   let query = `INSERT INTO user (username, password) VALUES ('${username}', '${hashedPassword}')`;
-  
-  console.log("Executing query: " + query); // Log to show SQL injection
 
   try {
     await dbPool.query(query);
@@ -165,7 +164,6 @@ app.post("/loginSubmit", async (req, res) => {
   // UNSAFE: SQL injection vulnerability
   let query = `SELECT * FROM user WHERE username = '${username}'`;
 
-  console.log("Executing query: " + query);
 
   try {
     const [rows] = await dbPool.query(query);
